@@ -19,6 +19,7 @@
                 font-family: 'Lato';
             }
 
+
             .container {
                 text-align: center;
                 display: table-cell;
@@ -38,7 +39,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title"> Hi </div>
             </div>
         </div>
     </body>
