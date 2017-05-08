@@ -39,7 +39,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title"> Hi </div>
+                <div class="title"> Witam szanowny Panie Pawle </div>
             </div>
         </div>
     </body>
