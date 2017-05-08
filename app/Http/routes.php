@@ -40,7 +40,7 @@ Route::delete('appointment/{id?}/delete}', array('as' => 'appointment.delete', '
 
 
 
-// Route::post('doctor/create', array('as' => 'doctor.create', 'uses' => 'HomeController@postDoctors'));
+Route::post('doctor/create', array('as' => 'doctor.create', 'uses' => 'HomeController@postDoctors'));
 
 
 

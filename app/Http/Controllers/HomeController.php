@@ -129,22 +129,18 @@ class HomeController extends Controller
       public function deleteAppointment($id){		//4
       	$id = request()->route("id");
       	Appointment::destroy($id);
-      //	$appointment = Appointment::find($id);
-    	// return response()->json(array('id'=>$id));
-      	//return response()->json($appointment);
-    }
+      	$appointment = Appointment::find($id);
+    	 return response()->json(array('id'=>$id));
+      	}
 
     
-    /*
+
     public function postDoctors(){
 		
 		$data = request()->all();
 		
 		$speciality_id = array_get($data, "speciality_id");
 		$speciality = Speciality::find($speciality_id);
-		
-		// return response()->json($speciality);
-		
 		$doctor = new Doctor();
 		$doctor->first_name = array_get($data,"first_name");	
 		$doctor->last_name = array_get($data,"last_name");
@@ -165,7 +161,6 @@ class HomeController extends Controller
     }
 
 
-	*/
     
 }
 
