@@ -159,8 +159,192 @@ class HomeController extends Controller
 		
     	return response()->json(["id"=> $doctor->id]);
     }
-
-
     
+//*************************************************************
+
+    public function create(Request $request)
+    {
+    	// $data = $request->json()->all();
+    	$appointmentReq = $request->json()->all();
+    	$appointment = Appointment::create(array(
+    			'DOCTOR_id' => $appointmentReq['doctor_id'],
+    			'PATIENT_id' => $appointmentReq['patient_id'],
+    			'date' => $appointmentReq['date'],
+    			'duration' => $appointmentReq['duration']
+    	));
+    	return \Response::json(array(
+    			'id' => $appointment->id
+    	));
+    }
+    
+    public function edit($appointment_id, Request $request)
+    {
+    	$appointmentReq = $request->json()->all();
+    	$appointment = Appointment::findOrFail($appointment_id);
+    	if(isset($appointmentReq['doctor_id'])) {
+    		$appointment->DOCTOR_id = $appointmentReq['doctor_id'];
+    	}
+    	if(isset($appointmentReq['patient_id'])){
+    		$appointment->PATIENT_id = $appointmentReq['patient_id'];
+    	}
+    	if(isset($appointmentReq['date'])){
+    		$appointment->date = $appointmentReq['date'];
+    	}
+    	if(isset($appointmentReq['duration'])){
+    		$appointment->duration = $appointmentReq['duration'];
+    	}
+    	$appointment->save();
+    	return \Response::json($appointment);
+    }
+    
+    public function destroy($appointment_id)
+    {
+    	$appointment = Appointment::find($appointment_id);
+    	if($appointment != null){
+    		$appointment->delete();
+    		return \Response::json(array(
+    				'id' => $appointment_id
+    		));
+    	}
+    	return \Response::json($appointment);
+    }
+    
+    public function create(Request $request)
+    {
+    	// $data = $request->json()->all();
+    	$doctorReq = $request->json()->all();
+    	$doctor = Doctor::create(array(
+    			'SPECIALITY_id' => $doctorReq['speciality_id'],
+    			'first_name' => $doctorReq['first_name'],
+    			'last_name' => $doctorReq['last_name'],
+    			'phone' => $doctorReq['phone'],
+    			'gender' => $doctorReq['gender'],
+    			'birthday' => $doctorReq['birthday'],
+    			'email' => $doctorReq['email'],
+    			'room' => $doctorReq['room']
+    	));
+    	return \Response::json(array(
+    			'id' => $doctor->id
+    	));}
+    	
+    	public function edit($doctor_id, Request $request)
+    	{
+    		$doctorReq = $request->json()->all();
+    		$doctor = Doctor::findOrFail($doctor_id);
+    		if(isset($doctorReq['speciality_id'])) {
+    			$doctor->SPECIALITY_id = $doctorReq['speciality_id'];
+    		}
+    		if(isset($doctorReq['first_name'])){
+    			$doctor->first_name = $doctorReq['first_name'];
+    		}
+    		if(isset($doctorReq['last_name'])){
+    			$doctor->last_name = $doctorReq['last_name'];
+    		}
+    		if(isset($doctorReq['phone'])){
+    			$doctor->phone = $doctorReq['phone'];
+    		}
+    		if(isset($doctorReq['gender'])){
+    			$doctor->gender = $doctorReq['gender'];
+    		}
+    		if(isset($doctorReq['birthday'])){
+    			$doctor->birthday = $doctorReq['birthday'];
+    		}
+    		if(isset($doctorReq['email'])){
+    			$doctor->email = $doctorReq['email'];
+    		}
+    		if(isset($doctorReq['room'])){
+    			$doctor->room = $doctorReq['room'];
+    		}
+    		$doctor->save();
+    		return \Response::json($doctor);
+    	}
+    	
+    	public function destroy($doctor_id)
+    	{
+    		$doctor = Doctor::find($doctor_id);
+    		if($doctor != null){
+    			$doctor->a_p_p_o_i_n_t_m_e_n_t_s()->delete();
+    			$doctor->delete();
+    			return \Response::json(array(
+    					'id' => $doctor_id
+    			));
+    		}
+    		return \Response::json($doctor);
+    	}
+    	
+    	public function create(Request $request)
+    	{
+    		// $data = $request->json()->all();
+    		$patientReq = $request->json()->all();
+    		$patient = Patient::create(array(
+    				'first_name' => $patientReq['first_name'],
+    				'last_name' => $patientReq['last_name'],
+    				'phone' => $patientReq['phone'],
+    				'gender' => $patientReq['gender'],
+    				'birthday' => $patientReq['birthday'],
+    				'email' => $patientReq['email']
+    		));
+    		return \Response::json(array(
+    				'id' => $patient->id
+    		));
+    	}
+    
+    
+    	public function edit($patient_id, Request $request)
+    	{
+    		$patientReq = $request->json()->all();
+    		$patient = Patient::findOrFail($patient_id);
+    		if(isset($patientReq['first_name'])){
+    			$patient->first_name = $patientReq['first_name'];
+    		}
+    		if(isset($patientReq['last_name'])){
+    			$patient->last_name = $patientReq['last_name'];
+    		}
+    		if(isset($patientReq['phone'])){
+    			$patient->phone = $patientReq['phone'];
+    		}
+    		if(isset($patientReq['gender'])){
+    			$patient->gender = $patientReq['gender'];
+    		}
+    		if(isset($patientReq['birthday'])){
+    			$patient->birthday = $patientReq['birthday'];
+    		}
+    		if(isset($patientReq['email'])){
+    			$patient->email = $patientReq['email'];
+    		}
+    		$patient->save();
+    		return \Response::json($patient);
+    	}
+    
+    	public function destroy($patient_id)
+    	{
+    		$patient = Patient::find($patient_id);
+    		if($patient != null){
+    			$patient->a_p_p_o_i_n_t_m_e_n_t_s()->delete();
+    			$patient->delete();
+    			return \Response::json(array(
+    					'id' => $patient_id
+    			));
+    		}
+    		return \Response::json($patient);
+    	}
+    	
+    	public function showAppointmentByDateOrSpeciality($patient_id, Request $request)
+    	{
+    		if(isSet($request['date'])){
+    			$patientAppointments = Appointment::where('PATIENT_id', '=', $patient_id)->whereDate('date', '=', $request['date'])->get();
+    			return \Response::json($patientAppointments);
+    		}
+    		if(isSet($request['speciality_id'])){
+    			$speciality_id = $request['speciality_id'];
+    			$patientAppointments = Appointment::where('PATIENT_id', '=', $patient_id)->join('DOCTOR', function($join)  use ($speciality_id)
+    			{
+    				$join->on('APPOINTMENT.DOCTOR_id', '=', 'DOCTOR.id')
+    				->where('DOCTOR.SPECIALITY_id', '=', $speciality_id);
+    			})->get(array('APPOINTMENT.*'));
+    			return \Response::json($patientAppointments);
+    		}
+    		return \Response::json();
+    	}
 }
 

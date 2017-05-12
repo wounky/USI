@@ -37,8 +37,10 @@ Route::get('patient/{id?}/appointment/{id2?}', array('as' => 'patient.get', 'use
 Route::delete('appointment/{id?}/delete}', array('as' => 'appointment.delete', 'uses' => 'HomeController@deleteAppointment'));
 
 
-
-
+Route::resource('doctor','HomeController');
+Route::resource('appointment','HomeController');
+Route::resource('patient','HomeController');
+Route::resource('speciality','HomeController');
 
 Route::post('doctor/create', array('as' => 'doctor.create', 'uses' => 'HomeController@postDoctors'));
 
